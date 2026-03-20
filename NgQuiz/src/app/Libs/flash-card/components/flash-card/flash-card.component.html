@@ -1,45 +1,40 @@
-@if (CardItems) {
+@if (cards() && cards().length) {
   <div class="flash-card-container">
+
     <div class="flash-card-view">
-      @for (item of CardItems; let i = $index; track $index) {
-        <q-flip-card [flip]="flip" [item]="item" [active]="i===state.index"></q-flip-card>
+      @for (card of cards(); track $index; let i = $index) {
+        <q-flip-card [active]="i === state().index" [item]="card" [(isFlipped)]="currentSide" />
       }
     </div>
-    <hr>
+
     <div class="flash-card-controls">
       <div class="c-center">
-        <button class="Btn ME-3" [disabled]="state.index+1===1" (click)="Prev()" title="View previous card">
+        <button class="Btn ME-3" [disabled]="state().index === 0" (click)="prev()" title="Previous">
           <i class="fas fa-arrow-left"></i>
         </button>
-        <span class="">{{ state.index + 1 }}/{{ CardItems.length }}</span>
-        <button class="Btn MS-3" [disabled]="state.index+1===CardItems.length" (click)="Next()" title="View next card">
+
+        <span>{{ state().index + 1 }} / {{ cards().length }}</span>
+
+        <button class="Btn MS-3" [disabled]="state().index === cards().length - 1" (click)="next()" title="Next">
           <i class="fas fa-arrow-right"></i>
         </button>
       </div>
+
       <div class="c-right">
+        <!-- keyboard shortcuts hint -->
         <div class="dropUp">
           <span class="dropUp-btn"><i class="fas fa-keyboard"></i></span>
           <div class="dropUp-content">
             <ul>
-              <li>
-                <span>Previous</span>
-                <span class="Border Float-end PY-1 PX-3"><i class="fas fa-arrow-left"></i></span>
-              </li>
-              <li>
-                <span>Next</span>
-                <span class="Border Float-end PY-1 PX-3"><i class="fas fa-arrow-right"></i></span>
-              </li>
-              <li>
-                <span>Flip</span>
-                <span class="Border Float-end PY-1 PX-3">Space</span>
-              </li>
+              <li>Previous <span class="Float-end Border PY-1 PX-3"><i class="fas fa-arrow-left"></i></span></li>
+              <li>Next <span class="Float-end Border PY-1 PX-3"><i class="fas fa-arrow-right"></i></span></li>
+              <li>Flip <span class="Float-end Border PY-1 PX-3">Space</span></li>
             </ul>
           </div>
         </div>
 
         <button class="Btn"><i class="fas fa-expand"></i></button>
       </div>
-
     </div>
   </div>
 }

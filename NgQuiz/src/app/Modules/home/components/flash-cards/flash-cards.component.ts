@@ -18,7 +18,7 @@ import {RouterLink} from '@angular/router';
 export class FlashCardsComponent implements OnInit, OnDestroy {
   Subscription!: Subscription;
   Items: QuizItem[] = [];
-  CardItems: { Front: string; Back: string; }[] = [];
+  CardItems: { front: string; back: string; }[] = [];
   cardState!: { index: number; percent: number; } ;
 
   constructor(private quizService: QuizService,) {
@@ -29,7 +29,7 @@ export class FlashCardsComponent implements OnInit, OnDestroy {
       this.Items = res.Data;
 
       this.CardItems = this.Items.map(x => {
-        return {Front: x.Term, Back: x.Definition};
+        return {front: x.Term, back: x.Definition};
       });
       this.cardState = {index: 0, percent: 100 / this.CardItems.length};
 

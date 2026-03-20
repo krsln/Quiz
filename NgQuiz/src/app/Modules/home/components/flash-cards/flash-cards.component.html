@@ -16,11 +16,15 @@
             PROGRESS <span class="">{{ cardState.index + 1 }}/{{ CardItems.length }}</span>
 
             <div class="side-controls">
-              <button class="W-100 MB-2 Btn Btn-sm Btn-outline-info" (click)="flashCard.Play()"><i
+              <button class="W-100 MB-2 Btn Btn-sm Btn-outline-info" (click)="flashCard.toggleFlip()"><i
                 class="fas fa-xs fa-play"></i>
-                Play
+                flip
               </button>
-              <button class="w-100 MB-2 Btn Btn-sm Btn-outline-info" (click)="flashCard.Shuffle()"><i
+              <button class="W-100 MB-2 Btn Btn-sm Btn-outline-info" (click)="flashCard.play()"><i
+                class="fas fa-xs fa-play fa-pause"></i>
+                Play / Pause
+              </button>
+              <button class="w-100 MB-2 Btn Btn-sm Btn-outline-info" (click)="flashCard.shuffle()"><i
                 class="fas fa-xs fa-random"></i> Shuffle
               </button>
               <button class="w-100 Btn Btn-sm Btn-outline-info"><i class="fas fa-xs fa-sliders-h"></i> Options</button>
@@ -30,7 +34,7 @@
       </div>
       <div class="Col-12 Col-lg-7 PY-1 PX-3">
 
-        <q-flash-card #flashCard [CardItems]="CardItems" [(state)]="cardState"></q-flash-card>
+        <q-flash-card #flashCard [cards]="CardItems" [(state)]="cardState"></q-flash-card>
 
       </div>
 

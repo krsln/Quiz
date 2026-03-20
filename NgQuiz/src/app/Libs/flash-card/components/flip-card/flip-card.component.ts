@@ -12,67 +12,54 @@ export class FlipCardComponent {
   active = input<boolean>(false);
 
   // The actual card content
-  item = input.required<{ Front: string; Back: string }>();
+  item = input.required<{ front: string; back: string }>();
 
-  // Initial / controlled flip state from parent (optional)
-  // 'front' or 'back' – defaults to 'back'
-  flip = input<string>('back');
+  // 'front' | 'back' — controlled from parent (optional)
+  initialSide = input<'front' | 'back'>('back');
 
-  // Internal reactive flip state (two-way if you want)
-  // We use this for the actual flipped class
-  flipped = model<boolean>(false);
+  // Internal flip state — we prefer signal + model() pattern
+  // isFlipped = model<'front' | 'back'>('back');
+  isFlipped = model<'front' | 'back'>('back');
 
   constructor() {
-    // Sync initial Flip input to internal state once on init
-    // Note: input() values are available in constructor in recent Angular versions
-    const initialIsFront = this.flip() === 'front';
-    this.flipped.set(initialIsFront);
+    // Sync initial side once
+    // this.isFlipped.set(this.initialSide() === 'front');
   }
 
-  /**
-   * Toggles the flip state
-   */
   flipCard(): void {
-    console.log("flipCard called");
-    this.flipped.update(current => !current);
+    this.isFlipped.update(
+      side => side === 'front' ? 'back' : 'front'
+    );
   }
 
-  /**
-   * Logs speech action
-   * @param isBack Whether the back side is currently visible
-   */
-  speech(isBack: boolean): void {
-    console.log('Speech requested', this.item(), 'side:', isBack ? 'back' : 'front');
+  speak(isBackSide: boolean): void {
+    console.log('Speak requested', this.item(), isBackSide ? 'back' : 'front');
+    // TODO: implement TTS
   }
 
-  /**
-   * Logs favorite action
-   */
-  favorite(): void {
-    console.log('Favorite clicked for item:', this.item());
+  toggleFavorite(): void {
+    console.log('Favorite toggled for', this.item());
+    // TODO: implement
+  }
+
+  edit(): void {
+    console.log('edit for', this.item());
+    // TODO: implement
   }
 
   @HostListener('click', ['$event'])
-  onClick(event: Event): void {
+  onCardClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
-
-    // Only flip when clicking the card body (not buttons)
-    if (target.closest('.flip-card-body')) {
-      this.flipCard();
-    }
 
     // Prevent flip when clicking buttons
     if (target.closest('button')) {
       event.stopPropagation();
+      return;
+    }
+
+    // Flip only when clicking inside the card body
+    if (target.closest('.flip-card-body')) {
+      this.flipCard();
     }
   }
-
-  // @HostListener('document:click')
-  // clickOutside(): void {
-  //   if (!this.wasInside) {
-  //     this.text = "clicked outside";
-  //   }
-  //   this.wasInside = false;
-  // }
-
 }

@@ -1,82 +1,114 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import {Component, input, model, OnInit} from '@angular/core';
+import {fromEvent} from 'rxjs';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FlipCardComponent} from '../flip-card/flip-card.component';
 
 @Component({
   selector: 'q-flash-card',
-  imports: [
-    FlipCardComponent
-  ],
+  imports: [FlipCardComponent],
   templateUrl: './flash-card.component.html',
   styleUrl: './flash-card.component.scss',
 })
-export class FlashCardComponent implements OnInit {
-  @Input() CardItems!: { Front: string; Back: string; }[];
+export class FlashCardComponent implements OnInit  {
+  cards = input.required<{ front: string; back: string }[]>();
 
-  // How to use two-way data binding between components in angular 2?
-  @Input() state!: { index: number; percent: number; };
-  @Output() stateChange: EventEmitter<{ index: number; percent: number; }> = new EventEmitter();
+  // Two-way binding with model()
+  state = model<{ index: number; percent: number }>({index: 0, percent: 0});
 
-  flip: string = 'back';
-  settings: any;
+  currentSide = model<'front' | 'back'>('back');
 
   constructor() {
-  }
-
-  ngOnInit(): void {
-
-    console.log(this.CardItems);
-    this.settings = {
-      leftSide: true
-    };
-    this.setPercent();
-  }
-
-  @HostListener('document:keydown', ['$event'])
-  onKeydownHandler(event: KeyboardEvent) {
-    switch (event.keyCode) {
-      case 32: // Space
-        // TODO: flip
-        console.log('TODO: flip');
-        this.flip = (this.flip === 'back') ? 'front' : 'back';
-        break;
-      case 37: // ArrowLeft
-        // if (this.state.index + 1 !== 1)
-        this.Prev();
-        break;
-      case 39: // ArrowRight
-        // if (this.state.index + 1 !== this.CardItems.length)
-        this.Next();
-        break;
+    if (typeof window !== 'undefined') {
+      fromEvent<KeyboardEvent>(document, 'keydown')
+        .pipe(takeUntilDestroyed())
+        .subscribe(e => {
+          if (e.code === 'Space') {
+            e.preventDefault();
+            this.toggleFlip();
+          }
+          if (e.code === 'Enter') this.play();
+          if (e.code === 'ArrowLeft') this.prev();
+          if (e.code === 'ArrowRight') this.next();
+        });
     }
   }
 
-  setPercent() {
-    this.state.percent = 100 / this.CardItems.length * (this.state.index + 1);
+  ngOnInit() {
+    this.updateProgress();
   }
 
-  Prev(): void {
-    if (this.state.index === 0) {
-      this.state.index = this.CardItems.length - 1;
-    } else {
-      this.state.index--;
+
+  prev(): void {
+    const current = this.state().index;
+    const len = this.cards().length;
+
+    this.state.update(s => ({
+      ...s,
+      index: current === 0 ? len - 1 : current - 1
+    }));
+
+    this.updateProgress();
+  }
+
+  next(): void {
+    const current = this.state().index;
+    const len = this.cards().length;
+
+    this.state.update(s => ({
+      ...s,
+      index: current === len - 1 ? 0 : current + 1
+    }));
+
+    this.updateProgress();
+  }
+
+  private updateProgress(): void {
+    const len = this.cards().length;
+    if (len === 0) return;
+    this.state.update(s => ({
+      ...s,
+      percent: ((s.index + 1) / len) * 100
+    }));
+  }
+
+  toggleFlip(): void {
+    this.currentSide.update(side => side === 'front' ? 'back' : 'front');
+  }
+
+
+  private autoPlayInterval: any = null;
+
+  play(): void {
+    if (this.autoPlayInterval) {
+      this.stop();
+      return;
     }
-    this.setPercent();
+
+    this.autoPlayInterval = setInterval(() => {
+      this.toggleFlip();
+
+      setTimeout(() => {
+        this.currentSide.set('front');
+        this.next();
+        this.currentSide.set('back');
+        if (this.state().index === 0) { // loop bittiğinde durdur
+          this.stop();
+        }
+      }, 1800); // kart gösterim süresi
+
+    }, 4000); // toplam döngü süresi
   }
 
-  Next(): void {
-    if (this.state.index === (this.CardItems.length - 1)) {
-      this.state.index = 0;
-    } else {
-      this.state.index++;
-    }
-    this.setPercent();
+  stop(): void {
+    clearInterval(this.autoPlayInterval);
+    this.autoPlayInterval = null;
   }
 
-  Play(): void {
-    this.Next();
-  }
+  shuffle(): void {
+    this.state.update(s => ({...s, index: 0}));
+    this.currentSide.set('back');
 
-  Shuffle(): void {
-    this.Prev();
+    // TODO:  shuffle implementation
+    console.log('Kartlar karıştırıldı (henüz tam implemente değil)');
   }
 }
