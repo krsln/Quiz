@@ -1,0 +1,29 @@
+<nav class="Navbar Navbar-expand-lg Navbar-dark Bg-dark Position-fixed Top-0 W-100" style="z-index: 1030;">
+  <div class="Container-fluid">
+    <a class="Navbar-brand" [routerLink]="['/Home']"
+       [routerLinkActive]="'Active'" [routerLinkActiveOptions]="{exact:false}">Home</a>
+    <button class="Navbar-toggler" type="button"
+            data-ls-toggle="collapse" data-ls-target="#navbarNav"
+            (click)="toggle=!toggle"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="Navbar-toggler-icon"></span>
+    </button>
+    <div class="Collapse Navbar-collapse" [class.Show]="toggle" id="navbarNavAltMarkup">
+      <div class="Navbar-nav">
+        <a class="Nav-link" [routerLink]="['/Home/FlashCard']" [routerLinkActive]="'Active'"
+           [routerLinkActiveOptions]="{exact:false}">FlashCard</a>
+        <a class="Nav-link" [routerLink]="['/Home/MultipleChoice']" [routerLinkActive]="'Active'"
+           [routerLinkActiveOptions]="{exact:false}">MultipleChoice</a>
+        <a class="Nav-link" [routerLink]="['/Home/Write']" [routerLinkActive]="'Active'"
+           [routerLinkActiveOptions]="{exact:false}">Write</a>
+        <a class="Nav-link" [routerLink]="['/Home/CRUD']" [routerLinkActive]="'Active'"
+           [routerLinkActiveOptions]="{exact:false}">CRUD</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<div class="Container-fluid" style="margin-top: 60px">
+  <router-outlet></router-outlet>
+</div>
