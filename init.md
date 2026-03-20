@@ -27,4 +27,40 @@ ng new NgQuiz --style=scss --skip-tests=true --routing=true --strict=true --ssr=
 
 --no-standalone
 ```
+
+## angular.json
+
+```json
+ {
+  "styles": [
+    "node_modules/@fortawesome/fontawesome-free/css/all.css",
+    "node_modules/@qrsln/lootstrap/dist/css/lootstrap.css",
+    "src/styles.scss"
+  ],
+  "scripts": [
+    "node_modules/@fortawesome/fontawesome-free/js/all.min.js"
+  ]
+}
+```
+
+##  
+
+```shell
+# layout
+#nx g @nx/angular:component Layouts/layout-root
+#nx g c Layouts/layout-root
+#ng generate component Layouts/layout-root
+#ng g c Layouts/layout-root
+
+# Modules/home
+ng generate module Modules/home --routing
+ng g m Modules/home --routing
+
+## home/components 
+ng g c Modules/home/components/home
+
+# Shared/
+ng g c Shared/components/todo
+
+
 ```
