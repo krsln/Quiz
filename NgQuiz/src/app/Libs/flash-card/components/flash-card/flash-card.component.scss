@@ -1,95 +1,69 @@
-.flash-card-container {
-  position: relative;
+
+.flash-card {
+  perspective: 1000px;
   width: 100%;
-  //height: 340px;
-  height: calc(90vh - 40px - 56px);
-  display: block;
-
+  //max-width: 520px;
+  height: 320px;
   margin: 0 auto;
-
-  .flash-card-view {
-    width: 100% !important;
-    height: calc(100% - 40px) !important;
-  }
-
-  .flash-card-controls {
-    width: 100% !important;
-    height: 40px;
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 10px !important;
-
-    .c-center {
-      position: relative;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .c-right {
-      position: absolute;
-      right: 0;
-    }
-  }
 }
 
-/* The container <div> - needed to position the dropUp content */
-.dropUp {
+.flash-card-inner {
   position: relative;
-  display: inline-block;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transform-style: preserve-3d;
+  cursor: pointer;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 
-  /* Show the dropUp menu on hover */
-  &:hover .dropUp-content {
-    display: block;
+  &.flipped {
+    transform: rotateY(-180deg);
   }
 
-  /* dropUp Button */
-  .dropUp-btn {
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-  }
-
-  /* DropUp content (Hidden by Default) */
-  .dropUp-content {
-    display: none;
+  .flash-card-face {
     position: absolute;
-    bottom: 30px;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-    z-index: 1;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    border-radius: 16px;
+    background: white;
+    border: 1px solid #e5e7eb;
+  }
 
+  .front {
+    background: linear-gradient(135deg, #f3e7e9, #fff);
+  }
+
+  .back {
+    transform: rotateY(180deg);
+    background: linear-gradient(135deg, #e0f2fe, #fff);
+  }
+
+  .actions-top {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    gap: 8px;
+
+    button {
+      font-size: 1.4rem;
+      background: none;
+      border: none;
+    }
+  }
+
+  .content p {
+    font-size: 1.35rem;
     font-weight: 600;
-    font-size: .875rem;
-    line-height: 1.285714285714286;
-
-    /* Links inside the dropUp */
-    a {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-
-      /* Change color of dropUp links on hover */
-      &:hover {
-        background-color: #ddd
-      }
-    }
-
-    ul {
-      display: flex;
-      flex-direction: column;
-      padding-left: 0;
-      margin-bottom: 0;
-
-      li {
-        position: relative;
-        display: block;
-        padding: .75rem 1.25rem;
-        margin-bottom: -1px;
-        background-color: #fff;
-        border: 1px solid rgba(0, 0, 0, .125);
-      }
-    }
+    line-height: 1.4;
+    color: #1f2937;
   }
 }

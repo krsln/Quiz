@@ -1,0 +1,61 @@
+<div class="Container PY-2 PX-4">
+  <div class="Row">
+
+    <div class="Col-12 Col-lg-2 P-1">
+      <div class="Card side-left">
+        <div class="Card-body h-100">
+
+        </div>
+      </div>
+    </div>
+    <div class="Col-12 Col-lg-7 PY-1 PX-3">
+
+      <div class="deck-container">
+        <!-- Header -->
+        <header class="deck-header">
+          <span class="counter">{{ state().index + 1 }} / {{ total() }}</span>
+          <div class="progress-bar">
+            <div class="progress" [style.width.%]="progressPercent()"></div>
+          </div>
+        </header>
+
+        <!-- Main Card Area -->
+        <div class="card-area" style="display: contents; height: 100%;">
+          <q-flash-card
+            [card]="currentCard()"
+            [(isFlipped)]="state().isFlipped"
+            (onSpeak)="speak($event)"
+            (onFavorite)="toggleFavorite()"
+            (onEdit)="edit()"/>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+          <div class="center-controls">
+            <button (click)="prev()" class="btn-nav">← Prev</button>
+            <button (click)="flip()" class="btn-flip">🔄 Flip (Space)</button>
+            <button (click)="next()" class="btn-nav">Next →</button>
+          </div>
+
+          <div class="bottom-bar">
+            <button (click)="shuffle()" title="Shuffle">🔀 Shuffle</button>
+            <button (click)="togglePlay()" class="play-btn" [class.playing]="state().isPlaying">
+              {{ state().isPlaying ? '⏸️ Pause' : '▶️ Play' }}
+            </button>
+            <button>📊 Stats</button>
+          </div>
+        </div>
+
+        <!-- Keyboard hint -->
+        <div class="hint">Space = Flip • ← → = Navigate • P = Play • S = Shuffle</div>
+      </div>
+
+    </div>
+
+    <div class="Col-12 Col-lg-3 P-2 Border Bc-dark">
+
+      ads...
+
+    </div>
+  </div>
+</div>

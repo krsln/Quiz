@@ -21,3 +21,19 @@ export interface ErrorType {
   Code: string;
   Message: string;
 }
+
+
+export interface FlashCard {
+  id: string;
+  front: string;
+  back: string;
+  isFavorite?: boolean;
+  tags?: string[];
+}
+
+export interface DeckState {
+  index: number;
+  isFlipped: boolean;
+  isPlaying: boolean;
+  progress: number; // 0-100
+}
