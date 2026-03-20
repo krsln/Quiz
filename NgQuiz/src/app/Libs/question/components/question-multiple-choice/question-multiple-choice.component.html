@@ -1,1 +1,45 @@
-<p>question-multiple-choice works!</p>
+<div class="QuestionMultipleChoice">
+  <!--  <div class="ScrollableViewLayout-content"></div>-->
+  <div class="QuestionMultipleChoice-inner">
+<!--    <label>-->
+<!--      @if (voices) {-->
+<!--        <select #langSelect (change)="SetLanguage(langSelect.value)">-->
+<!--          @for (voice of voices; let i = $index; track $index) {-->
+<!--            <option [value]="i"> {{ voice.name }} - {{ voice.lang }}</option>-->
+<!--          }-->
+<!--        </select>-->
+<!--      }-->
+<!--    </label>-->
+    <div class="QuestionMultipleChoice-prompt" (click)="Speech('Hello, how are you today ?')">
+      <p>QuestionMultipleChoice works!</p>
+      <br>
+      <br>
+      <br>
+      <br>
+    </div>
+    <div class="QuestionMultipleChoice-options">
+      <div class="term">
+        <div class="inner">1</div>
+      </div>
+      <div class="term">
+        <div class="inner">2</div>
+      </div>
+      <div class="term">
+        <div class="inner">3</div>
+      </div>
+      <div class="term">
+        <div class="inner">4</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="FeedbackItem">
+  FeedbackItem
+  <br> :( Study this one!
+  <hr>
+  DEFINITION tts
+  <br> CORRECT ANSWER tts
+  <br> YOU SAID tts
+  <br> Press any key to continue
+</div>

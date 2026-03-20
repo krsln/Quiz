@@ -1,1 +1,44 @@
-<p>flash-cards works!</p>
+@if (CardItems) {
+  <div class="Container PY-2 PX-4">
+    <div class="Row">
+
+      <div class="Col-12 Col-lg-2 P-1">
+        <div class="Card side-left">
+          <div class="Card-body h-100">
+            <a class="Btn" [routerLink]="'/'"><i class="fas fa-1x fa-caret-left"></i> Back</a>
+            <hr>
+            Flashcards
+            <div class="Progress">
+              <div class="Progress-bar" role="progressbar"
+                   [style]="{'width':cardState.percent+'%'}" [attr.aria-valuenow]="cardState.percent" aria-valuemin="0"
+                   aria-valuemax="100"></div>
+            </div>
+            PROGRESS <span class="">{{ cardState.index + 1 }}/{{ CardItems.length }}</span>
+
+            <div class="side-controls">
+              <button class="W-100 MB-2 Btn Btn-sm Btn-outline-info" (click)="flashCard.Play()"><i
+                class="fas fa-xs fa-play"></i>
+                Play
+              </button>
+              <button class="w-100 MB-2 Btn Btn-sm Btn-outline-info" (click)="flashCard.Shuffle()"><i
+                class="fas fa-xs fa-random"></i> Shuffle
+              </button>
+              <button class="w-100 Btn Btn-sm Btn-outline-info"><i class="fas fa-xs fa-sliders-h"></i> Options</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="Col-12 Col-lg-7 PY-1 PX-3">
+
+        <q-flash-card #flashCard [CardItems]="CardItems" [(state)]="cardState"></q-flash-card>
+
+      </div>
+
+      <div class="Col-12 Col-lg-3 P-2 Border Bc-dark">
+
+        ads...
+
+      </div>
+    </div>
+  </div>
+}

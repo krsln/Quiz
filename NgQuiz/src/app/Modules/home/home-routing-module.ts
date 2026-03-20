@@ -16,6 +16,7 @@ const routes: Routes = [
       {path: 'MultipleChoice', data: {breadcrumb: 'MultipleChoice'}, component: MultiChoiceComponent},
       {path: 'Write', data: {breadcrumb: 'Write'}, component: WritingComponent},
       {path: 'CRUD', data: {breadcrumb: 'CRUD'}, component: AdminCrudComponent},
+      {path: 'CRUD/:Id', data: {breadcrumb: 'CRUD'}, component: AdminCrudComponent},
     ]
   },
 ];

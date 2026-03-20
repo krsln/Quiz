@@ -1,0 +1,178 @@
+//-----------------------------------------------------------
+// flyIn
+.fly-in {
+  animation: flyIn 500ms ease-in-out forwards;
+}
+
+.fly-out {
+  animation: flyOut 500ms ease-in-out forwards;
+}
+
+@keyframes flyIn {
+  from {
+    transform: translateX(-50%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+//-----------------------------------------------------------
+// scaleIn
+.scale-in {
+  animation: scaleIn 150ms cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.scale-out {
+  animation: scaleOut 150ms cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+//-----------------------------------------------------------
+
+@keyframes flyOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(50%);
+    opacity: 0;
+  }
+}
+
+.flip-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+
+  perspective: 800px;
+  //min-height: 180px;
+  //border: 1px solid black;
+
+  .flip-card-body {
+    margin-bottom: 1rem !important;
+    margin-top: 1rem !important;
+    padding: 3rem !important;
+    background-color: white;
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.12), 0 0 10px 0 rgba(0, 0, 0, 0.12) !important;
+
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+
+    .card-side {
+      position: absolute;
+      //width: calc(100% - 80px);
+      //height: calc(100% - 80px);
+      width: calc(100% - 6rem);
+      height: calc(100% - 6rem);
+      border: 1px dashed whitesmoke;
+      background: #fcf7f7;
+
+      &.card-side-front, &.card-side-back {
+        display: table;
+        // https://vanseodesign.com/css/vertical-centering/
+        color: black;
+        //background: #fff;
+
+        text-align: center;
+        font-weight: bold;
+        font-size: 14px;
+        backface-visibility: hidden;
+
+        .content-top {
+          position: absolute;
+          width: 100%;
+        }
+
+        .content {
+          padding: 10px;
+          display: table-cell;
+          vertical-align: middle;
+        }
+      }
+
+      &.card-side-back {
+        transform: rotateX(180deg);
+      }
+    }
+  }
+
+
+  //.flip-card {
+  //  position: absolute;
+  //  width: 100%;
+  //  height: 100%;
+  //  //border: 1px solid gray;
+  //
+  //  transition: transform 1s;
+  //  transform-style: preserve-3d;
+  //  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.12), 0 0 10px 0 rgba(0, 0, 0, 0.12) !important;
+  //  padding: 40px;
+  //
+  //  .sides {
+  //    position: absolute;
+  //    width: calc(100% - 80px);
+  //    height: calc(100% - 80px);
+  //
+  //    background-color: whitesmoke;
+  //
+  //    &.front, &.back {
+  //      display: table;
+  //      // https://vanseodesign.com/css/vertical-centering/
+  //      color: black;
+  //      //background: #fff;
+  //
+  //      text-align: center;
+  //      font-weight: bold;
+  //      font-size: 14px;
+  //      backface-visibility: hidden;
+  //
+  //      .content {
+  //        display: table-cell;
+  //        vertical-align: middle;
+  //      }
+  //    }
+  //
+  //    &.back {
+  //      transform: rotateX(180deg);
+  //    }
+  //  }
+  //}
+}
+

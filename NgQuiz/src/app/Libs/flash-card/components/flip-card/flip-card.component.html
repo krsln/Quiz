@@ -1,1 +1,53 @@
-<p>flip-card works!</p>
+@if (active()) {
+  <div class="flip-card"
+       animate.enter="'scale-in'"
+       animate.leave="'scale-out'"
+       [class.active]="active()">
+
+    <!--
+      flipped class is applied based on internal state
+      We derive current side from flipped() signal
+    -->
+    <div class="flip-card-body" [class.flipped]="flipped()" (click)="flipCard()">
+
+      <!-- Front side -->
+      <div class="card-side card-side-front">
+        <div class="content-top">
+          <button class="Btn Float-end" (click)="speech(false)">
+            <i class="fas fa-xs fa-volume-up"></i>
+          </button>
+          <button class="Btn Float-end" (click)="favorite()">
+            <i class="fas fa-xs fa-star"></i>
+          </button>
+          <button class="Btn Float-end">
+            <i class="fas fa-xs fa-pen"></i>
+          </button>
+        </div>
+
+        <div class="content">
+          <p>Front: {{ item().Front }}</p>
+        </div>
+      </div>
+
+      <!-- Back side -->
+      <div class="card-side card-side-back">
+        <div class="content-top">
+          <button class="Btn Float-end" (click)="speech(true)">
+            <i class="fas fa-xs fa-volume-up"></i>
+          </button>
+          <button class="Btn Float-end" (click)="favorite()">
+            <i class="fas fa-xs fa-star"></i>
+          </button>
+          <button class="Btn Float-end">
+            <i class="fas fa-xs fa-pen"></i>
+          </button>
+        </div>
+
+        <div class="content">
+          <p>Back: {{ item().Back }}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+}

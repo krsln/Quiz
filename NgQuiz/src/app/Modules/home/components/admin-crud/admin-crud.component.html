@@ -1,1 +1,83 @@
-<p>admin-crud works!</p>
+<div class="Container PY-2 PX-4">
+  <div class="Row">
+
+    <div class="Col-12 Col-lg-8 p-1">
+
+      <div class="Card MB-2">
+        <div class="Row G-0">
+          <div class="Col-md-8 P-2 Card-body">
+            <h5 class="Card-title">Items</h5>
+
+            <div class="Btn-group" role="group">
+              <button type="button" class="Btn Btn-outline-danger" [routerLink]="'/Home/CRUD'">Clear</button>
+              <button type="button" class="Btn Btn-outline-primary" (click)="Save()">Save</button>
+            </div>
+
+            <hr>
+
+            <div class="MB-2 Fg-muted">
+              Item.Id: <strong>{{ Item.Id }}</strong>
+            </div>
+
+            <div class="Form-group Row">
+              <label for="Term" class="Col-sm-3 Col-form-label">Term</label>
+              <div class="Col-sm-9">
+                <input type="text" class="Form-control" id="Term" [(ngModel)]="Item.Term">
+              </div>
+            </div>
+            <div class="Form-group Row">
+              <label for="Definition" class="Col-sm-3 Col-form-label">Definition</label>
+              <div class="Col-sm-9">
+                <input type="text" class="Form-control" id="Definition" [(ngModel)]="Item.Definition">
+              </div>
+            </div>
+            <!--            <div class="form-group row">-->
+            <!--              <label for="ImageSrc" class="Col-sm-3 Col-form-label">ImageSrc</label>-->
+            <!--              <div class="Col-sm-9">-->
+            <!--                <input type="text" class="form-control" id="ImageSrc" [(ngModel)]="Item.ImageSrc">-->
+            <!--              </div>-->
+            <!--            </div>-->
+
+          </div>
+          <!--          <div class="Col-md-4 d-none" [ngClass]="{'d-md-block':Item.ImageSrc}">-->
+          <!--            <img class="Card-img" *ngIf="Item.ImageSrc" [alt]="Item.FullName" [title]="Item.FullName"-->
+          <!--                 [src]="Item.ImageSrc">-->
+          <!--          </div>-->
+        </div>
+      </div>
+
+      <!--Code-->
+      <div class="Card MB-2">
+        <div class="Card-header">
+          <button class="Btn Btn-outline-dark" type="button" data-toggle="collapse"
+                  data-target="#collapseHighlight" aria-expanded="true" aria-controls="collapseHighlight">
+            Code Json
+          </button>
+        </div>
+        <div id="collapseHighlight" class="collapse show Card-body">
+          <pre><code [highlight]="stringify()" language="html"></code></pre>
+        </div>
+      </div>
+
+    </div>
+    <div class="Col-12 Col-lg-4 p-1">
+      <div class="Card Card-body">
+        <h5 class="Card-title">Filter</h5>
+        <input type="text" class="form-control" [(ngModel)]="filterText" placeholder="Search ...">
+        <hr>
+        <div class="List">
+          @for (item of Items|filter:filterText:'Term'; track item.Id) {
+            <div class="List-item List-item-action"
+                 [routerLink]="['/Home/CRUD',item.Id]"  tabindex="0">
+              <span class="M-2">{{ item.Term }}</span>
+              <button class="Btn Btn-sm Btn-danger Float-end" (click)="onDelete(item); $event.stopPropagation()">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
