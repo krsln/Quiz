@@ -1,15 +1,4 @@
-# NgQuiz
-https://github.com/krsln/NgQuiz  
-Demo [https://krsln.github.io/NgQuiz](https://krsln.github.io/NgQuiz)
+# Quiz (Alfa)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) 
-
-## Publish
-```
-"build:GitHub": "ng build --prod --base-href=\"https://krsln.github.io/NgQuiz/\"",
-yarn build:GitHub
-```
-> copy to github project folder then.. from there
-```
-angular-cli-ghpages --dir=dist/NgQuiz
-```
+[![Demo](https://img.shields.io/badge/Demo-Usage-orange?style=for-the-badge)](https://krsln.github.io/Quiz)
+![GitHub top language](https://img.shields.io/github/languages/top/krsln/Quiz?style=for-the-badge)
