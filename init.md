@@ -75,6 +75,8 @@ ng generate module Libs/question
 ng g c Libs/question/components/question-multiple-choice --type=component
 ng g c Libs/question/components/question-written --type=component
 
-
+# for style
+npm i @qrsln/lootstrap
+npm i @fortawesome/fontawesome-free
 
 ```
